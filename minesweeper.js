@@ -17,17 +17,17 @@ document.addEventListener('DOMContentLoaded', startGame)
     ]
   };
 
-console.log(board.cells[0].isMine)
+
  
       for (var i = 0; i < board.cells.length; i++) {
         if(board.cells[i].isMine === true) {
-          console.log(board.cells[i].isMine)
+          //console.log(board.cells[i].isMine)
         } 
       }
   
 function startGame () { 
   for (var i = 0; i < board.cells.length; i++) {
-    var surroundingMines = countSurroundingMines(board.cells[i].isMine)
+    var surroundingMines = countSurroundingMines(board.cells[i])
   }
 
 
@@ -62,8 +62,16 @@ function countSurroundingMines(cell) {
     var surrounding = lib.getSurroundingCells(cell.row, cell.col);
     //console.log(surrounding);
 
-
+    for (a = 0; a < surrounding.length; a ++) {
+      if (surrounding.isMine === true) {
+        count ++;
+      } 
+    }
+    return count;
 }
+
+
+
 
 
 

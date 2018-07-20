@@ -19,9 +19,7 @@ document.addEventListener('DOMContentLoaded', startGame)
   */
 /* Define your `board` object here! - This is the shorter way to do it. 
 Instead of typing out the global board object, write a function to create it. 
-
 Each cell will need row, col, isMine, isMarked and hidden properties
-
 You could start by simply setting every isMine to true, but later you'll 
 probably want to have a random number of mines scattered throughout the board. 
 */
@@ -30,7 +28,7 @@ var board = {
   cells: []
 };
 
-var boardSize = 4; //max should be 6
+var boardSize = 5; //max should be 6
 
 function gameBoard () {
   for (var r = 0; r < boardSize; r++) {
@@ -38,7 +36,7 @@ function gameBoard () {
       board.cells.push({
         col: c,
         row: r,
-        isMine: Math.random() >= 0.5,
+        isMine: Math.random() <= 0.3,
         hidden: true,
 
       })
@@ -46,14 +44,11 @@ function gameBoard () {
   }
 }
 
-
-
-
   
 function startGame () { 
   gameBoard();
   for (var i = 0; i < board.cells.length; i++) {
-    var surroundingMines = countSurroundingMines(board.cells[i])
+    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i])
   }
 
   document.addEventListener("click", checkForWin);
@@ -74,15 +69,25 @@ function checkForWin () {
   //of board.cells. For each cell, check to see if both .isMine and
   //.isMarked are true.
   
-  for (var i = 0; i < board.cells.length; i++) {
-    if(board.cells[i].isMine) {
-      if (!board.cells[i].isMarked);
-      return;
-
-    } else if (board.cells[i].hidden)
-    return;
+  for (let index =0; index < board.cells.length; index++){
+    if (board.cells[index].isMine && !board.cells[index].isMarked){
+      return 
+    }
+    if (board.cells[index].isMarked && !board.cells[index].isMine && board.cells[index].hidden) {
+      return
+    }
+    if (!board.cells[index].isMine && board.cells[index].hidden) {
+      return
+    }
   }
-    lib.displayMessage('You win!');
+
+  var audio = document.getElementsByClassName("win")[0];
+  audio.play();
+
+lib.displayMessage('You have won!');
+
+
+
   
     //If any mine still exists that isn't marked, the player hasn't won
     //yet and you can return out of the function
@@ -109,7 +114,7 @@ function countSurroundingMines (cell) {
   var count = 0;
 
   for (var i = 0; i < surroundingCells.length; i++) {
-    if (surroundingCells[i].isMine == true) {
+    if (surroundingCells[i].isMine === true) {
       count++;
 
       console.log(count)
@@ -118,12 +123,8 @@ function countSurroundingMines (cell) {
   return count;
 } 
 
-
-
-
-
-
-
-  
-
-
+function reset() {
+  document.getElementsByClassName("board")[0].innerHTML = "";
+  board = { cells: [] };
+  startGame();
+}

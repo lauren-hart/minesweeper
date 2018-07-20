@@ -84,7 +84,7 @@ function checkForWin () {
   var audio = document.getElementsByClassName("win")[0];
   audio.play();
 
-lib.displayMessage('You have won!');
+lib.displayMessage('You win!');
 
 
 

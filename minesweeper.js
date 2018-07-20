@@ -36,7 +36,7 @@ function gameBoard () {
       board.cells.push({
         col: c,
         row: r,
-        isMine: Math.random() <= 0.3,
+        isMine: Math.random() <= 0.4,
         hidden: true,
 
       })

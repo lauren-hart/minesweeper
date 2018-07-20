@@ -44,7 +44,7 @@ body {
 }
 
 div.mine, div.mine:hover {
-  background: no-repeat center/60% url("images/bomb.svg") crimson;
+  background: no-repeat center/60% url("images/dead.png") rgb(18, 30, 146);
 }
 
 div.hidden {
